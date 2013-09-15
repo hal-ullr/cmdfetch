@@ -1,14 +1,16 @@
 ###Notes
 ---
-Binaries built with srlua, use one if you trust me I guess, or wrap one yourself from the srlua source. Binary has the "Now Playing" line disabled by default because it appeals to the people who want ease of use, as well as a minor change in the source that will hopefully not cause issue. I'd appreciate any comments on this, for those brave enough to run the binary or wrap the modified source themselves.
+Binaries built with srlua, use one if you trust me I guess, or wrap one yourself from the srlua source. I'd appreciate any comments on this, for those brave enough to run the binary or wrap the modified source themselves. Differences include the removal of the crunchbang from the top of the file, srlua doesn't like that and it isn't used, and the removal of the error to stdout pipe, that will probably cause an error if you don't have bbLean installed, please let me know. The binary currently is not cooperating with the "Now Playing" line. It is recommended that you use the source and not the binary.
 
 ###History
 ---
-This is version 3.0.1 of CMDFetch. CMDFetch is a clone of screenfetch/screenfo for Windows written in Lua. CMDFetch was written as a batch file and distributed with proprietary binaries until version 2.0.0. Version 2.1.5 was re-written from the bottom up as version 3.0.0 with several new features. Version 2.1.5 can be obtained at http://sourceforge.net/projects/cmdfetch/ and versions 2.1.4 and under can be obtained at http://cmdfetch.inb4u.com/. CMDFetch was originally written before screenfetch supported Cygwin, to this day it retains features that screenfetch doesn't have. Version 3.0.0 is source independant of versions predating 2.0.0 like Winfetch, but is a continuation of the project and contains fragments of code from versions after 2.0.0. 
+This is version 3.0.2 of CMDFetch. CMDFetch is a clone of screenfetch/screenfo for Windows written in Lua. CMDFetch was written as a batch file and distributed with proprietary binaries until version 2.0.0. Version 2.1.5 was re-written from the bottom up as version 3.0.0 with several new features. Version 2.1.5 can be obtained at http://sourceforge.net/projects/cmdfetch/ and versions 2.1.4 and under can be obtained at http://cmdfetch.inb4u.com/. CMDFetch was originally written before screenfetch supported Cygwin, to this day it retains features that screenfetch doesn't have. Version 3.0.0 is source independant of versions predating 2.0.0 like Winfetch, but is a continuation of the project and contains fragments of code from versions after 2.0.0. 
 
 ###Changelog
 ---
-+  version 3.0.1
++  Version 3.0.2
+   Small bug fixes
++  Version 3.0.1
    Won't error if lua socket isn't present, will automatically disable the now playing line if it can't load it.
 
 ###Arguments:
@@ -58,7 +60,7 @@ This is version 3.0.1 of CMDFetch. CMDFetch is a clone of screenfetch/screenfo f
 
 +  Lua Socket if you want the "Now Playing" line to work. If you don't want to install LuaSocket,
    Just remove the "Now Playing" bit in the ```usedLines``` table at the top of the script.
-+  COM Automation Server if you want the "Now Playing" line to work with foobar. Get it here: http://foosion.foobar2000.org/0.9/
++  Foobar Control Server if you want the "Now Playing" line to work with foobar. Get it here: https://code.google.com/p/foo-controlserver/
 
 ###Screenshots:
 ---

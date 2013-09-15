@@ -426,7 +426,7 @@ lineFunctions["bbLean Theme"] = function()
         if task == "blackbox" then
             --  Check for bbLean
             local drive = os.getenv("HOMEDRIVE")
-            local dir = "2>&1 cmd /c dir /b "..drive.."\\bbLean"
+            local dir = "cmd /c 2>&1 dir /b "..drive.."\\\\bbLean "
             if os.getenv("TERM") == "cygwin" then
                 dir = dir:gsub("\\","\\\\")
             end
@@ -617,6 +617,13 @@ lineFunctions["Font"] = function()
         end
     else
         local default,font
+        if terminal:find("xterm") then --attempt to pull from .minttyrc
+            for line in io.popen("2>/dev/null cat ~/.minttyrc"):lines() do
+                if line:sub(1,5) == "Font=" then
+                    font = line:match("Font=(.+)")
+                end
+            end
+        end
         for line in io.popen("ls -a ~ -1"):lines() do
             if line == ".Xdefaults" then
                 default = ".Xdefaults"
@@ -624,7 +631,7 @@ lineFunctions["Font"] = function()
                 default = ".Xresources"
             end
         end
-        if default then
+        if default and not font then
             for line in io.popen("cat ~/"..default):lines() do
                 if terminal:find("xterm") then  --  ambiguous, could be mintty or xterm
                     match = line:match("faceName: (.+)")
@@ -632,13 +639,6 @@ lineFunctions["Font"] = function()
                 else
                     match = line:match("font: (.+)")
                     if match then font = match end
-                end
-            end
-        end
-        if terminal:find("xterm") and not font then --attempt to pull from .minttyrc
-            for line in io.popen("cat ~/.minttyrc"):lines() do
-                if line:find("Font=") then
-                    font = line:match("Font=(.+)")
                 end
             end
         end
@@ -701,7 +701,7 @@ lineFunctions["IRC Client"] = function()
     for line in tasks:lines() do
         if line:find("hexchat%.exe") then
             client = "Hexchat"
-        elseif line:find("weechat%-curses%.exe") then
+        elseif line:find("weechat%-curses%.exe") or line:find("weechat.exe") then
             client = "WeeChat"
         elseif line:find("irssi%.exe") then
             client = "irssi"
@@ -781,10 +781,10 @@ helpLines = {
     "                            Default: 1",
     "  -L, --lefty           Flip the logo and information",
     "  -C, --center          Center information vertically relative to logo",
-    "  -2, --256colo         Use 256 colors",
+    "  -2, --256color        Use 256 colors",
     "  -1, --18color         Force use of 18 colors, do not allow automatic switching",
     "  -D, --down            Position the logo at the bottom of the information",
-    "\nv.3.0.1",
+    "\nv.3.0.2",
     "By Hal, Zanthas, tested (and approved) by KittyKatt, other people"
 }
 
@@ -804,7 +804,7 @@ function parseArg(arg,arg2)
         if down then center = false end
     elseif arg == "-2" or arg == "--256color" then
         data256Color = true
-    elseif arg == "-1" or arg == "--18colors" then
+    elseif arg == "-1" or arg == "--18color" then
         data256Color = false
     elseif arg == "-c" or arg == "--color" then
         if not arg2 or not colors[string.lower(arg2)] then  --  Argument isn't correct
@@ -910,7 +910,7 @@ for i = 1,#usedLines do
 end
 local dataLines,logoLines = {},{}
 for i = 1,#usedLines do
-    local info = (lineFunctions[usedLines[i]]()):gsub("[^\032\027%w%p_\n]","")
+    local info = (lineFunctions[usedLines[i]]()):gsub("[^\032\027%w%p_\n]","") or "hi"
     local firstLine = true
     for line in info:gmatch("[^\n]+") do
         if not (line:lower():find("not found") and noNotFound) then
@@ -1219,7 +1219,7 @@ else
             end
         else
             for i = 1,lLines do
-                table.insert(newLogo,logos[logo][i]..dataLines[i+lLines])
+                table.insert(newLogo,logos[logo][i]..dataLines[i])
             end
         end
     elseif lLines > dLines then
