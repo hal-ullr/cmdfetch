@@ -426,7 +426,7 @@ lineFunctions["bbLean Theme"] = function()
         if task == "blackbox" then
             --  Check for bbLean
             local drive = os.getenv("HOMEDRIVE")
-            local dir = "cmd /c 2>&1 dir /b "..drive.."\\\\bbLean "
+            local dir = "2>&1 cmd /c dir /b "..drive.."\\bbLean "
             if os.getenv("TERM") == "cygwin" then
                 dir = dir:gsub("\\","\\\\")
             end
@@ -618,7 +618,10 @@ lineFunctions["Font"] = function()
     else
         local default,font
         if terminal:find("xterm") then --attempt to pull from .minttyrc
-            for line in io.popen("2>/dev/null cat ~/.minttyrc"):lines() do
+			local dir = os.getenv("HOMEDRIVE").."\\\\cygwin\\\\home\\\\"..os.getenv("USERNAME")
+			local dir = io.popen("cmd /c type "..dir.."\\\\.minttyrc")
+			
+            for line in dir:lines() do
                 if line:sub(1,5) == "Font=" then
                     font = line:match("Font=(.+)")
                 end

@@ -617,7 +617,10 @@ lineFunctions["Font"] = function()
     else
         local default,font
         if terminal:find("xterm") then --attempt to pull from .minttyrc
-            for line in io.popen("2>/dev/null cat ~/.minttyrc"):lines() do
+			local dir = os.getenv("HOMEDRIVE").."\\\\cygwin\\\\home\\\\"..os.getenv("USERNAME")
+			local dir = io.popen("cmd /c type "..dir.."\\\\.minttyrc")
+			
+            for line in dir:lines() do
                 if line:sub(1,5) == "Font=" then
                     font = line:match("Font=(.+)")
                 end
