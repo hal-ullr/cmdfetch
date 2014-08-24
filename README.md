@@ -47,9 +47,8 @@ This is version 5.0.0 of CMDFetch. CMDFetch is a clone of screenfetch/screenfo f
 ###Screenshots:
 ---
 <p align="center">
-	<img src="https://raw.githubusercontent.com/hal-ullr/cmdfetch/master/screenshots/1.png" alt="CMDFetch"/>
-	<img src="https://raw.githubusercontent.com/hal-ullr/cmdfetch/master/screenshots/2.png" alt="CMDFetch"/>
 	<img src="https://raw.githubusercontent.com/hal-ullr/cmdfetch/master/screenshots/3.png" alt="CMDFetch"/>
+	<img src="https://raw.githubusercontent.com/hal-ullr/cmdfetch/master/screenshots/1.png" alt="CMDFetch"/>
 </p>
 ###Changelog
 ---
