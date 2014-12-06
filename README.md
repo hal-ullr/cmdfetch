@@ -1,6 +1,6 @@
 ###History
 ---
-This is version 5.0.0 of CMDFetch. CMDFetch is a clone of screenfetch/screenfo for Windows written in Lua. CMDFetch was written as a batch file and distributed with proprietary binaries until version 2.0.0. Version 2.0.0 and later are written in Lua with no proprietary dependencies Version 2.1.5 was re-written from the bottom up as version 3.0.0 with several new features. Version four was a feature clone of Version three with a cleaner code base, but it never saw completion. Version five is a rewrite of Version four with a modified feature set. Versions 3.0.0 to 4.0.0 are source independent of versions predating 2.0.0 like Winfetch, but are a continuation of the project and contain fragments of code from versions after 2.0.0.  Versions 5.0.0 and after are source independent of all previous versions, but functionally comparable.
+This is version 5.0.2 of CMDFetch. CMDFetch is a clone of screenfetch/screenfo for Windows written in Lua. CMDFetch was written as a batch file and distributed with proprietary binaries until version 2.0.0. Version 2.0.0 and later are written in Lua with no proprietary dependencies Version 2.1.5 was re-written from the bottom up as version 3.0.0 with several new features. Version four was a feature clone of Version three with a cleaner code base, but it never saw completion. Version five is a rewrite of Version four with a modified feature set. Versions 3.0.0 to 4.0.0 are source independent of versions predating 2.0.0 like Winfetch, but are a continuation of the project and contain fragments of code from versions after 2.0.0.  Versions 5.0.0 and after are source independent of all previous versions, but functionally comparable.
 
 ###Arguments:
 ---
@@ -53,3 +53,15 @@ This is version 5.0.0 of CMDFetch. CMDFetch is a clone of screenfetch/screenfo f
 </p>
 ###Changelog
 ---
+
+####Version 5.0.1
+
++  Fixed Visual Style
++  Removed bold colors from color scale
++  Minor fixes
+
+####Version 5.0.2
+
++ Removed bold colors from name
++ Removed extraneous logos
++ Minor fixes

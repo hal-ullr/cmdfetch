@@ -5,8 +5,8 @@
 ----  Thanks to Zanthas and the rest of the original CMDFetch team
 ----  Thanks to KittyKatt and the makers of screenfo
 
-xpcall(function() require("socket/socket") end,nil)
 xpcall(function() require("socket") end,nil)
+xpcall(function() require("socket/socket") end,nil)
 
 
 
@@ -32,7 +32,7 @@ local help = (
                             center,top,bottom (defaults to center)
   -m, --margin #,#      Set the padding around the logo
 
-v.5.0.1 by Hal, Zanthas, tested (and approved) by KittyKatt, other people]])
+v.5.0.2 by Hal, Zanthas, tested (and approved) by KittyKatt, other people]])
 
 local colorhelp = (
 [[The following patterns are acceptable:
@@ -114,35 +114,8 @@ local logos = {
 					'{3=*^```"*4E3) ;EEEtttt:::::tZ`     ',
 					'             ` :EEEEtttt::::z7      ',
 					'                 "VEzjt:;;z>*`      '},
-	linux = {		"  #################  ",
-					"#####################",
-					"#####################",
-					"  #################  ",
-					"   ################  ",
-					"   ###############   ",
-					"    #############    ",
-					"     ###########     ",
-					"       #######       ",
-					"       ##O#O##       ",
-					"       #######       ",
-					"        #####        "},
-	mac = {			[[     ,:+oo+\:-''-:\+o+\-     ]],
-					[[    :ooooooooooooooooooo+'   ]],
-					[[  ,ossssssssssssssssssssss\  ]],
-					[[ ,syyyyyyyyyyyyyyyyyyyyyyyy+,]],
-					[[ osssssssssssssssssssssssso\,]],
-					[[:ssssssssssssssssssssssss-   ]],
-					[[\sssssssssssssssssssssss'    ]],
-					[[\++++++++++++++++++++++\     ]],
-					[[-+++++++++++++++++++++++,    ]],
-					[[ \\\\\\\\\\\\\\\\\\\\\\\\,   ]],
-					[[ .:\\\\\\\\\\\\\\\\\\\\\\\:, ]],
-					[[   ':\++++++\::::\++++++\:,  ]],
-					[[      ':-::- '+\:-,,.::-     ]],
-					[[              \+++\'         ]],
-					[[               :++++'        ]],
-					[[                -\+:'        ]]},
-	none = {		""}}
+	none = {		""}
+}
 
 local colormaps = {
 	windows8 = {
@@ -156,19 +129,9 @@ local colormaps = {
 		{{4,17},{3,6},{2,4},{3,9}},{{4,16},{3,20}},{{4,15},{3,21}},
 		{{4,15},{3,21}},{{4,14},{3,22}},{{4,14},{3,22}},{{4,16},{3,20}},
 	},
-	linux = {
-		{{1,7},{2,7},{1,7}},{{1,7},{2,1},{3,5},{2,1},{1,7}},
-		{{1,6},{2,1},{3,7},{2,1},{1,6}},{{1,4},{2,1},{3,11},{2,2},{1,3}},
-		{{2,4},{3,12},{2,5}},{{2,4},{3,12},{2,5}},{{2,5},{3,10},{2,6}},
-		{{2,7},{3,2},{1,3},{3,2},{2,7}},{{2,8},{1,5},{2,8}},
-		{{2,9},{3,1},{2,1},{3,1},{2,9}},{{2,21}},{{2,21}}
-	},
-	mac = {
-		{{6,29}},{{6,29}},{{6,29}},{{5,29}},{{5,29}},{{4,29}},{{4,29}},
-		{{3,29}},{{3,29}},{{2,29}},{{2,29}},{{1,29}},{{1,29}},{{1,29}},
-		{{1,29}},{{1,29}}},
 	none = {
-		{{1,1}}}
+		{{1,1}}
+	}
 }
 
 local colornames = {
@@ -222,15 +185,16 @@ local logo = getwmic("os","caption"):match("7") and "windows7" or "windows8"
 local function getcolor(x)
 	if type(x) == "number" then
 		return x < 16 and (
-			"\027[%s;3%sm"
-		):format(x<8 and 0 or 1,x%8) or (
-			"\027[38;5;%sm"
-		):format(x)
+			("\027[%s;3%sm"):format(x<8 and 0 or 1,x%8)
+		) or (
+			("\027[38;5;%sm"):format(x)
+		)
 	elseif type(x) == "string" then
 		for _,color in pairs(colors) do
 			if x == color or x == "light"..color then
 				return depth ~= "0" and ("\027[%s;3%sm"):format(
-					x:match("light") and 1 or 0,({
+					(x:match("light") and 1 or 0),
+					({
 						["black"]=0,["red"]=1,["green"]=2,["yellow"]=3,
 						["blue"]=4,["magenta"]=5,["cyan"]=6,["white"]=7
 					})[(x:gsub("light",""))]
@@ -481,7 +445,7 @@ local function getname()
 			name,domain..reset
 		)
 	elseif depth == "16" then
-		return ("\027[1;33m%s\027[1;37m@\027[1;30m%s"):format(
+		return ("\027[0;33m%s\027[0;37m@\027[0;30m%s"):format(
 			name,domain..reset
 		)
 	else
