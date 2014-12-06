@@ -24,7 +24,7 @@ local help = (
                             See --help color for formatting help
   -h, --help            
   -l, --logo logo       Change the logo
-                            windows8, windows7, linux, mac (defaults to 7 or 8)
+                            windows8, windows7, linux, mac, none
   -L, --lefty           Toggle the switching of logo and information
   -s, --stripe [dir]    Stripe the colors for the logo à la screenfo
                             vertical, horizontal, none
@@ -32,7 +32,7 @@ local help = (
                             center,top,bottom (defaults to center)
   -m, --margin #,#      Set the padding around the logo
 
-v.5.0.0 by Hal, Zanthas, tested (and approved) by KittyKatt, other people]])
+v.5.0.1 by Hal, Zanthas, tested (and approved) by KittyKatt, other people]])
 
 local colorhelp = (
 [[The following patterns are acceptable:
@@ -240,7 +240,6 @@ local function getcolor(x)
 	elseif x == nil then
 		return ""
 	end
-	return nil
 end
 
 
@@ -422,8 +421,8 @@ local function colorscale(value,max)
 		return getcolor(16+math.min(scale-1,5)*36+math.min(11-scale,5)*6)
 	elseif depth == "16" then
 		return getcolor(({
-			"lightgreen","green","yellow","red","lightred"
-		})[math.min(math.floor(value/(max/5))+1,5)])
+			"green","yellow","red"
+		})[math.min(math.floor(value/(max/3))+1,3)])
 	else
 		return ""
 	end
@@ -599,6 +598,7 @@ local function getgpu()
 	local gpu,gpulines = io.popen("wmic path Win32_VideoController get caption"),{}
 	for line in gpu:lines() do
 		if line and not line:lower():find("caption") and line:find("%w") then
+			line = line:gsub("%(Microsoft Corporation %- WDDM 1%.0%)","")
 			table.insert(gpulines,(line:gsub("%s+"," "):gsub("%([RTM]+%)","")))
 		end
 	end
@@ -612,7 +612,7 @@ function getvs()
 	local key = 'cmd /c "2>nul reg query '..dir1..' /v DllName"'
 	for line in io.popen(key):lines() do
 		if line:match("DllName") then
-			return line:match("([%w%s]+)%.msstyles")
+			return line:match("([^\\]+)%.msstyles")
 		end
 	end
 	--  There isn't a visual style found
