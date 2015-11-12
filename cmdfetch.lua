@@ -671,3 +671,5 @@ for i = 1,math.max(#c1,#c2) do
 	m1,m2 = (" "):rep(m1),(" "):rep(m2)
 	print(m1..(c1[i] or (" "):rep(ctrim(c1[#c1]):len()))..m2..(c2[i] or ""))
 end
+
+print("\027[0m")
