@@ -16,7 +16,7 @@ This is version 5.0.2 of CMDFetch. CMDFetch is a clone of screenfetch/screenfo f
   -l, --logo logo       Change the logo
                             windows8, windows7, linux, mac (defaults to 7 or 8)
   -L, --lefty           Toggle the switching of logo and information
-  -s, --stripe [dir]    Stripe the colors for the logo à la screenfo
+  -s, --stripe [dir]    Stripe the colors for the logo Ã  la screenfo
                             vertical, horizontal, none
   -v, --vert alignment  Align the shorter column vertically
                             center,top,bottom (defaults to center)
@@ -26,7 +26,7 @@ This is version 5.0.2 of CMDFetch. CMDFetch is a clone of screenfetch/screenfo f
 ###Requires:
 ---
 +  A lua interpreter:
-   https://code.google.com/p/luaforwindows/
+   https://github.com/rjpcomputing/luaforwindows/
    After installation you can use "lua cmdfetch.lua" to run cmdfetch
    in your favorite Unix shell or CMD.
    [ http://www.mediafire.com/?eku77kh2i9f14pm ] 
